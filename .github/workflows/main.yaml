@@ -1,12 +1,19 @@
 name: Automated API tests using Postman CLI
 
-on: push
+on:
+  push:
+    branches: ["main"]
 
 jobs:
   automated-api-tests:
     runs-on: ubuntu-latest
+
+    env:
+      BASEURL: ${{ vars.BASE_URL }}
+
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout source
+        uses: actions/checkout@v4
 
       - name: Install Postman CLI
         run: |
@@ -17,4 +24,5 @@ jobs:
 
       - name: Run API tests
         run: |
-          postman collection run "43106804-ce7d4748-623a-468c-b251-7df882590284" --env-var BASEURL=${{ vars.BASE_URL }}
+          postman collection run "43106804-ce7d4748-623a-468c-b251-7df882590284" \
+            --env-var BASEURL=$BASEURL
