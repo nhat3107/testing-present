@@ -10,8 +10,8 @@ jobs:
       - name: Install Postman CLI
         run: |
           curl -o- "https://dl-cli.pstmn.io/install/linux64.sh" | sh
-          export BASEURL=${{ vars.BASEURL }}
-          echo "BASEURL: $BASEURL"
+          newman run collection.json \
+          --env-var BASEURL=${{ vars.BASE_URL }}
       - name: Login to Postman CLI
         run: postman login --with-api-key ${{ secrets.POSTMAN_API_KEY }}
       - name: Run API tests
