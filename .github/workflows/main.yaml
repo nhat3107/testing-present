@@ -24,5 +24,4 @@ jobs:
 
       - name: Run API tests
         run: |
-          postman collection run "43106804-ce7d4748-623a-468c-b251-7df882590284" \
-            --env-var BASEURL=$BASEURL
+          postman collection run "43106804-ce7d4748-623a-468c-b251-7df882590284"
