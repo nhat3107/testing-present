@@ -7,13 +7,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+
       - name: Install Postman CLI
         run: |
           curl -o- "https://dl-cli.pstmn.io/install/linux64.sh" | sh
-          newman run collection.json \
-          --env-var BASEURL=${{ vars.BASE_URL }}
+
       - name: Login to Postman CLI
         run: postman login --with-api-key ${{ secrets.POSTMAN_API_KEY }}
+
       - name: Run API tests
         run: |
-          postman collection run "43106804-ce7d4748-623a-468c-b251-7df882590284"
+          postman collection run "43106804-ce7d4748-623a-468c-b251-7df882590284" --env-var BASEURL=${{ vars.BASE_URL }}
