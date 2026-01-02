@@ -7,11 +7,6 @@ import { app, server } from "./lib/socket.js";
 
 import connectDB from "./lib/db.js";
 import authRoutes from "./routers/auth.route.js";
-import oauthRoutes from "./routers/oauth.route.js";
-import chatRoutes from "./routers/chat.route.js";
-import messageRoutes from "./routers/message.route.js";
-import videoCallRoutes from "./routers/videoCall.route.js";
-import postRoutes from "./routers/post.route.js";
 import userRoutes from "./routers/user.route.js";
 
 const PORT = process.env.PORT || 5000;
@@ -54,11 +49,6 @@ app.get("/", (req, res) => {
 });
 
 app.use("/api/auth", authRoutes);
-app.use("/api/oauth", oauthRoutes);
-app.use("/api/chat", chatRoutes);
-app.use("/api/message", messageRoutes);
-app.use("/api/videocall", videoCallRoutes);
-app.use("/api/post", postRoutes);
 app.use("/api/users", userRoutes);
 
 if (process.env.NODE_ENV !== "test") {
