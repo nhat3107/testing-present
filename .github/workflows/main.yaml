@@ -24,7 +24,8 @@ jobs:
 
       - name: Run application (background)
         run: |
-          npm start
+          npm start &
+          npx wait-on $BASEURL
 
       - name: Install Postman CLI
         run: |
