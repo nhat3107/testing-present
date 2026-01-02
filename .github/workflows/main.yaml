@@ -5,23 +5,26 @@ on: push
 jobs:
   automated-api-tests:
     runs-on: ubuntu-latest
+
+    env:
+      DATABASE_URL: ${{ secrets.DATABASE_URL }}
+      JWT_SECRET_KEY: ${{ secrets.JWT_SECRET_KEY }}
+
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout source
+        uses: actions/checkout@v4
 
       - name: Set up Node.js
         uses: actions/setup-node@v4
-        with: node-version: '20'
+        with:
+          node-version: "20"
 
       - name: Install dependencies
         run: npm install
 
-      - name: Set environment variables
+      - name: Run application (background)
         run: |
-          export DATABASE_URL=${{ secrets.DATABASE_URL }}
-          export JWT_SECRET_KEY=${{ secrets.JWT_SECRET_KEY }}
-          
-      - name: Run application
-        run: npm start
+          npm start
 
       - name: Install Postman CLI
         run: |
@@ -30,6 +33,6 @@ jobs:
       - name: Login to Postman CLI
         run: postman login --with-api-key ${{ secrets.POSTMAN_API_KEY }}
 
-      - name: Run API tests
+      - name: Run API tests (Postman Cloud Collection)
         run: |
           postman collection run "43106804-ce7d4748-623a-468c-b251-7df882590284"
